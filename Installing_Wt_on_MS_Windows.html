@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Installing Wt on MS Windows</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<style>
+body { font:80% Verdana,Tahoma,Arial,sans-serif; }
+h1, h2, h3, h4 {  font-family: "Trebuchet MS",Georgia,"Times New Roman",serif; }
+ul.toc { padding: 4px; margin-left: 0; }
+ul.toc li { list-style-type:none; }
+ul.toc li.heading2 { margin-left: 1em; }
+ul.toc li.heading3 { margin-left: 2em; }
+a.wiki-anchor { display: none; margin-left: 6px; text-decoration: none; }
+a.wiki-anchor:hover { color: #aaa !important; text-decoration: none; }
+h1:hover a.wiki-anchor, h2:hover a.wiki-anchor, h3:hover a.wiki-anchor { display: inline; color: #ddd; }
+</style>
+</head>
+<body>
+<h1 id="Installing-Wt-on-MS-Windows">Installing Wt on MS Windows<a href="#Installing-Wt-on-MS-Windows" class="wiki-anchor">&para;</a></h1>
+
+
+	<ul class="toc"><li class="heading1"><a href="#Installing-Wt-on-MS-Windows">Installing Wt on MS Windows</a></li>
+<li class="heading2"><a href="#Setting-up-your-compiler">Setting up your compiler</a></li>
+<li class="heading2"><a href="#The-Quick-Method">The Quick Method</a></li>
+<li class="heading3"><a href="#Download-Dependencies">Download Dependencies</a></li>
+<li class="heading3"><a href="#Configuring-Wt">Configuring Wt</a></li>
+<li class="heading3"><a href="#Compiling-Wt">Compiling Wt</a></li>
+<li class="heading3"><a href="#Running-the-examples">Running the examples</a></li>
+<li class="heading3"><a href="#Installing-Wt">Installing Wt</a></li>
+<li class="heading2"><a href="#Optional-components">Optional components</a></li>
+<li class="heading3"><a href="#Preparations">Preparations</a></li>
+<li class="heading3"><a href="#Download-and-build-zlib">Download and build zlib</a></li>
+<li class="heading3"><a href="#OpenSSL">OpenSSL</a></li>
+<li class="heading3"><a href="#GraphicsMagick">GraphicsMagick</a></li>
+<li class="heading2"><a href="#Important-Remarks">Important Remarks</a></li>
+<li class="heading2"><a href="#Support-for-Microsoft-IIS">Support for Microsoft IIS</a></li>
+</ul>
+
+
+	<p>This HOWTO assumes you have a clean Windows system and want to use Wt 2.1 or newer series. We start with the download of the compiler and system libraries. We continue to explain where the dependency libraries can be found and how they are installed. Then the configuration of Wt is covered, and finally we build Wt and run the examples.</p>
+
+
+	<p>Unlike Linux distributions, Windows has no easy package managers for developers. To avoid that you're compiling dependencies for half a day before you can use Wt, we strongly reduced the minimal dependencies that Wt requires. Since Wt 2.1, Boost and cmake are the only required dependencies. We will explain two approaches to set up your environment: the quick method, using binary packages, and the thorough method, in which you compile more dependencies, but which will also result in a Wt that supports compression, SSL, etc.</p>
+
+
+	<p>These instructions have been tested both on Windows XP and Windows Vista. These instructions are valid for all 2.1 and newer versions of Wt.</p>
+
+
+	<h2 id="Setting-up-your-compiler">Setting up your compiler<a href="#Setting-up-your-compiler" class="wiki-anchor">&para;</a></h2>
+
+
+	<p>You need Microsoft Visual Studio 2005 or newer, Professional or Express Edition (C++). The difference is that the former is payware, whereas the latter is a free reduced version of MSVC. The good news is that the Express Edition is perfect to compile Wt.</p>
+
+
+	<p>For more information about the compiler, see <a href="Installing_MSVC.html" class="wiki-page">Installing MSVC</a>.</p>
+
+
+	<h2 id="The-Quick-Method">The Quick Method<a href="#The-Quick-Method" class="wiki-anchor">&para;</a></h2>
+
+
+	<p>The quick method installs Wt without any optional components (compression-over-HTTP and support for HTTPS)</p>
+
+
+	<h3 id="Download-Dependencies">Download Dependencies<a href="#Download-Dependencies" class="wiki-anchor">&para;</a></h3>
+
+
+	<ul>
+	<li>Download the BoostPro installer for version 1.36 or newer from <a href="http://www.boost-consulting.com/download/" class="external">boost-consulting</a> (you might need to register in order to download the BoostPro installer). Run it, and install all types for all libraries for the correct version of your MSVC compiler at a location of your choice.</li>
+		<li>Download the <a href="http://www.cmake.org/" class="external">cmake 2.6</a> (cmake > 2.4.6 required) Windows Installer. Run the installer to install cmake.</li>
+		<li>Download Wt from the <a href="http://www.webtoolkit.eu/wt/download" class="external">download page</a>. Unzip it somehwere (c:/projects/witty/wt-2.x.x).</li>
+	</ul>
+
+
+	<h3 id="Configuring-Wt">Configuring Wt<a href="#Configuring-Wt" class="wiki-anchor">&para;</a></h3>
+
+
+	<ul>
+	<li>Start cmake from the Start->CMake menu</li>
+		<li>Where the source code is: c:\projects\witty\wt-2.x.x</li>
+		<li>Where to build the binaries: c:\projects\witty\wt-2.x.x\build (or whatever, but choose something different than the source directory)</li>
+		<li>Click Configure</li>
+		<li>Select Visual Studio 8 2005 or 2008</li>
+	</ul>
+
+
+You will probably get errors about Boost not being found. That is normal, as you did not yet tell where the library is located. Set this variables:
+	<ul>
+	<li>BOOST_DIR = c:/Program Files/boost/boost_1_36_0 (adapt for your version)</li>
+	</ul>
+
+
+	<p>Another error you might encounter in CMake is "The C compiler "cl" is not able to compile a simple test program." This means that your Visual Studio won't find 'cmd' as it isn't configured correctly.</p>
+
+
+	<p>What you must do is change MSVS options (Tools menu > Options > Project and Solutions > VC++ Directories) to ensure that</p>
+
+
+	<ul>
+	<li>   $(SystemRoot)</li>
+	</ul>
+
+
+	<ul>
+	<li>   $(SystemRoot)\System32</li>
+	</ul>
+
+
+	<ul>
+	<li>   $(SystemRoot)\System32\wbem</li>
+	</ul>
+
+
+	<ul>
+	<li>   are specified BEFORE $(PATH).</li>
+	</ul>
+
+
+	<p>Press 'Configure' again. A few messages about the FCGI and wthttpd connector may pop up; click Ok (in cmake 2.8, this button is called 'Generate'). A few new configuration fields (in red) will have popped up; leave them unchanged and press 'Configure' once more. If all went well, you have now no red fields left and the configuration is complete. Press 'Ok' and your MSVC solution files will be generated.</p>
+
+
+	<h3 id="Compiling-Wt">Compiling Wt<a href="#Compiling-Wt" class="wiki-anchor">&para;</a></h3>
+
+
+	<p>Open the WT.sln solution in the 'Where to build the binaries' directory of the previous step. Press F7, or select the projects you want to build manually. You should not get any compile or link errors.</p>
+
+
+	<h3 id="Running-the-examples">Running the examples<a href="#Running-the-examples" class="wiki-anchor">&para;</a></h3>
+
+
+	<p>In the MSVC IDE Right-click on the example project you want to run, and select 'Properties'. In Configuration Properties->Debugging, set the Command Arguments to</p>
+
+
+<pre>
+--http-address=0.0.0.0 --http-port=8080 --deploy-path=/hello --docroot=.
+ </pre>
+
+	<p>Wt builds static versions of all libraries by default and links against static boost libraries by default. If you would choose to build dynamic libraries in the future (see remarks at the bottom of this page), the easiest way to locate the dependency dlls, is to append their location to the PATH variable. In order to do so, change the Environment field to contain a PATH directive:<br /> <pre>
+PATH=c:/libraries/lib;c:/Boost/lib;&lt;path to wt.dll&gt;;&lt;path to wthttp.dll&gt;
+ </pre></p>
+
+
+	<p>Right-click on the example project you want to run and select 'Set as Startup Project'. Press F5 (Run). This will start a httpd server listening on all local interfaces, on port 8080, and you may browse the example at <a class="external" href="http://127.0.0.1:8080/hello">http://127.0.0.1:8080/hello</a></p>
+
+
+	<p>Examples that need extra files to run, should be executed from their source directory in order to find their dependency files (icons, css files, etc. Watch for 404 errors in Wt's output). To do so, set the 'Working directory' for the example to wt-2.x.x/examples/ExampleName. Some examples (e.g. the wt home page) need the 'resources' directory to work correctly. Copy the wt-2.x.x/resources to the example's source directory to solve this problem. Other examples (such as the Charts example) may require the installation of ExtJs. See the Wt reference manual for more information on how to obtain and install ExtJs.</p>
+
+
+	<p>These are all the command-line options that are available:<br /> <pre>
+General options:
+  -h [ --help ]              produce help message
+  -t [ --threads ] arg (=10) number of threads
+  --docroot arg              document root for static files
+  --no-compression           do not compress dynamic text/html and text/plain 
+                             responses
+  --deploy-path arg (=/)     location for deployment
+
+HTTP server options:
+  --http-address arg    IPv4 (e.g. 0.0.0.0) or IPv6 Address (e.g. 0::0)
+  --http-port arg (=80) HTTP port (e.g. 80)
+
+HTTPS server options:
+  --https-address arg     IPv4 (e.g. 0.0.0.0) or IPv6 Address (e.g. 0::0)
+  --https-port arg (=443) HTTPS port (e.g. 443)
+  --ssl-certificate arg   SSL server certificate chain file
+                          e.g. "/etc/ssl/certs/vsign1.pem" 
+  --ssl-private-key arg   SSL server private key file
+                          e.g. "/etc/ssl/private/company.pem" 
+  --ssl-tmp-dh arg        File for temporary Diffie-Hellman parameters
+                          e.g. "/etc/ssl/dh512.pem" 
+ </pre></p>
+
+
+	<h3 id="Installing-Wt">Installing Wt<a href="#Installing-Wt" class="wiki-anchor">&para;</a></h3>
+
+
+	<p>After compilation, right-click on 'INSTALL' and select 'build'. This will copy Wt header files an libraries to c:/Program Files/WT.</p>
+
+
+	<h2 id="Optional-components">Optional components<a href="#Optional-components" class="wiki-anchor">&para;</a></h2>
+
+
+	<p>This involves installing SSL, zlib, and some other components. After installation as described here, rerun cmake so that it uses. These instructions are valid for Wt > 2.1.0.</p>
+
+
+	<h3 id="Preparations">Preparations<a href="#Preparations" class="wiki-anchor">&para;</a></h3>
+
+
+	<p>In order to avoid to set paths to small library separately, we create a repository where we store them all. CMake will find this repository without intervention if you call it 'c:\libraries'.<br /> <pre>
+mkdir c:\libraries
+mkdir c:\libraries\lib
+mkdir c:\libraries\include
+ </pre></p>
+
+
+	<h3 id="Download-and-build-zlib">Download and build zlib<a href="#Download-and-build-zlib" class="wiki-anchor">&para;</a></h3>
+
+
+	<p>Zlib is an optional dependency of Wt, which can be controlled by the CMake flag HTTP_WITH_ZLIB. With zlib, Wt compresses all http traffic by default, saving bandwidth.</p>
+
+
+	<ul>
+	<li>Get zlib from <a class="external" href="http://www.zlib.net/">http://www.zlib.net/</a> (<a href="http://www.gzip.org/zlib/zlib-1.2.3.tar.gz" class="external">direct link for version 1.2.3</a>). </li>
+		<li>Open zlib-1.2.3\contrib\vstudio\vc8\zlibvc.sln</li>
+		<li>Select solution 'Debug', architecture 'Win32' (in the toolbar)</li>
+		<li>Right-click on project 'zlibstat', select Properties. In 'Configuration Properties'->'C/C++'->'Code Generation'->'Runtime Libraries' and set it to 'Multi-threaded Debug DLL (/MDd)'. Close the properties window.</li>
+		<li>Do the same with project 'zlibvc'</li>
+		<li>Right-click on project 'zlibstat', and select 'Build' to build it.</li>
+		<li>Select solution 'Release', architecture 'Win32' </li>
+		<li>Right-click on project 'zlibstat', select Properties. In 'Configuration Properties'->'C/C++'->'Code Generation'->'Runtime Libraries' and set it to 'Multi-threaded DLL (/MD)'. Close the properties window.</li>
+		<li>Do the same with project 'zlibvc'* Right-click on project 'zlibstat', and select 'Build' to build it.</li>
+	</ul>
+
+
+	<p>Results are now located in the x86 directory. Copy them into our central repository location, renaming the debug library in the process:<br /> <pre>
+cp contrib\vstudio\vc8\x86\ZlibStatDebug\zlibstat.lib c:\libraries\lib\zlibstatd.lib
+cp contrib\vstudio\vc8\x86\ZlibStatRelease\zlibstat.lib c:\libraries\lib\
+ </pre></p>
+
+
+	<p>We also need zlib.h and zconf.h header files.<br /> <pre>
+cp zlib.h zconf.h c:\libraries\include
+ </pre></p>
+
+
+	<h3 id="OpenSSL">OpenSSL<a href="#OpenSSL" class="wiki-anchor">&para;</a></h3>
+
+
+	<p>You need OpenSSL if you want to use Wt to support https mode. Grab a pre-compiled binary from <a class="external" href="http://www.openssl.org/related/binaries.html">http://www.openssl.org/related/binaries.html</a>, install it in the default path (c:\OpenSSL) and Wt's CMake files will find and use OpenSSL (verify that HTTP_WITH_SSL is enabled).</p>
+
+
+	<h3 id="GraphicsMagick">GraphicsMagick<a href="#GraphicsMagick" class="wiki-anchor">&para;</a></h3>
+
+
+	<p>Generic build instructions for GraphicsMagick are found here: <a class="external" href="http://www.graphicsmagick.org/INSTALL-windows.html#installing-from-source-code">http://www.graphicsmagick.org/INSTALL-windows.html#installing-from-source-code</a></p>
+
+
+In order for GraphicsMagick to work with your version of MSVC, it is strongly recommended to build it from the sources. Follow the instructions on the GraphicsMagick site:
+	<ul>
+	<li>Run <code>VisualMagick/configure/configure.exe</code> to create a .sln file</li>
+		<li>Make sure to select the default 'Dynamic Multi-threaded DLL runtimes' and 'Use X11 stubs to prevent use of X windows'</li>
+		<li>Open <code>VisualMagick/VisualStaticMT.sln</code> in MSVC and press F7. Make sure you select the 'Release' or 'Debug' build as appropriate. For me, the UTIL_IMDisplay project fails to compile, which is unimportant.</li>
+	</ul>
+
+
+	<p>While configuring Wt, point GM_PREFIX to the toplevel directory of GraphicsMagick (i.e. the one containing subdirectories VisualMagick and magick). Press Configure, and cmake should find the header files and compiled binaries.</p>
+
+
+	<p>Important: when executing a binary linked to a Wt library that uses GraphicsMagick, the GraphicsMagick DLLs must be found by Windows. This means that they should  be in c:/windows/system32, or in the current working directory, or that you should add the VisualMagick/bin directory to your path. Otherwise your application will complain that it cannot find the required DLLs to start up.</p>
+
+
+	<p>In order to render fonts, verify that your imagemagick fonts are correctly configured. For example, on my computer I had to remove the include for type-ghostscript.mgk in the VisualMagick/bin/type.mgk file to have any fonts rendered at all.</p>
+
+
+	<h2 id="Important-Remarks">Important Remarks<a href="#Important-Remarks" class="wiki-anchor">&para;</a></h2>
+
+
+	<p>By default, Wt will build static libraries that are statically linked against boost. While this is convenient for quick deployment (the example binaries do not require dlls to run, so you do not have to set their PATHs correctly), many people prefer to use dll's, not in the least because your Wt applications will link much faster.</p>
+
+
+Two cmake options control how Wt is built, and what kind of boost libraries it uses:
+	<ul>
+	<li>BOOST_DYNAMIC: set to true to build against boost dlls. Set to false to link to static boost libraries.</li>
+		<li>SHARED_LIBS: set to true to build a Wt DLL, set to false to build a static Wt library.</li>
+	</ul>
+
+
+	<p>When you double-checked the library directories but you still get build errors such as "cannot open file 'libboost_signals-vc90-mt-gd-1_35.lib'", you probably did not install or build the static boost files, while the BOOST_DYNAMIC option is set to false. Similarly, when the error indicates that boost_signals-vc90-mt-gd-1_35.lib is not found, you probably haven't installed or built the boost dlls, while BOOST_DYNAMIC is set to true.</p>
+
+
+	<p>Note that, when you build a static Wt library (SHARED_LIBS is false), you will get these boost-related linker errors only when you compile the examples.</p>
+
+
+	<h2 id="Support-for-Microsoft-IIS">Support for Microsoft IIS<a href="#Support-for-Microsoft-IIS" class="wiki-anchor">&para;</a></h2>
+
+
+	<p>Wt works well with Microsoft IIS as ISAPI extensions. See the <a href="ISAPI_on_Microsoft_IIS.html" class="wiki-page">ISAPI on Microsoft IIS</a> wiki for more information on how to deploy Wt in IIS.</p>
+</body>
+</html>

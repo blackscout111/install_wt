@@ -1,0 +1,106 @@
+################################################################################
+# CONTENTS AND SEARCH KEYS
+# @@ WT
+
+
+################################################################################
+# @@ WT
+# INSTALLING WT FOR WINDOWS (Using MSVS 2010)
+################################################################################
+
+- Follow the 'Quick Method' instructions at (They're pretty good)
+	"http://redmine.webtoolkit.eu/projects/wt/wiki/Installing_Wt_on_MS_Windows"
+- DONT INSTALL BOOST VERSION 1.46 (It's "path" object is missing conversions)
+- Use version "1.44.0" instead
+- After I installed cmake and hit configure errors popped up.  I found that the
+	instructions on the wt website weren't so great for dealing with this error.
+	The solution I found was to do the following:
+	- In the cmake gui find the variable name 'BOOST_PREFIX'
+	- In my install it was wrong so changed it to the correct directory for
+	boost (in my case 'C:/Program Files/boost/boost_1_44')
+	- Then I hit the "configure" button a few more times till the 'red' went
+	away
+	- Then I hit "generate"
+- Continue following the directions EXCEPT for when you need to open up "WT.sln"
+- To open the solution you need to run MSVS as an administrator
+	(i.e. find MSVS in the start menu and run it as an admin. Then open up the
+	 "WT.sln" from inside MSVS)
+- For the "Running the examples" part of the setup instructions, I chose
+	"hello.wt"
+- I set the command arguments (see instructions) to:
+	"--http-address=0.0.0.0 --http-port=8080 --deploy-path=/hello --docroot=."
+- I also added the boost dependency locations to my PATH variable
+	"c:/libraries/lib;c:/Boost/lib;<path to wt.dll>;<path to wthttp.dll>"
+- Then I right-clicked 'hello.wt' and set it as my startup project
+- I hit 'F5' and a window popped up telling me that some projects were out of
+	date.
+- I built the out of date projects
+- It took a long time for the thing to compile for the first time.  Eventually
+	it finished.  A command line popped up and a Windows Fire wall message
+	popped up.  I allowed wt to go through the port.
+- Find "INSTALL" in the solution explorer of MSVS.
+- Right-click it and select 'build'
+- Continue following the instructions to install the optional components
+
+# Installing ZLIB
+- I used the link for the zlib homepage and scrolled to the bottom of the page
+- Click the link to download version "1.2.5"
+- Continue following the directions except open up the vc10 folder
+- Ignore the step about the debugging architecture
+- When it says "Select solution 'Release', architecture 'Win32'"
+	- right click on the solution and select "Configuration Manager"
+	- click the drop-down menu that says "Debug" and select "Release"
+- When I got to the last build it failed. To fix it did the following:
+	- Download the file at this link <http://www.winimage.com/zLibDll/zlib124_masm_obj.zip>
+	- Extract it
+	- Navigate in it to "contrib\masmx86" and copy the two ".obj" files to
+	  <contrib/masmx86>
+- Try to rebuild zlibstat (it should work)
+- When copying the files don't forget that you want vc10 not vc8
+- After the files have been copied run cmake again
+- At the top of the box check "Advanced"
+- The list of entries should reload and show more stuff
+- Scroll down to the bottom to find ZLIB_INCLUDE
+- Set the value of this to "c:/libraries/include"
+- Find ZLIB_LIBRARIES
+- Set the value of this to "c:/libraries/lib"
+- Uncheck "Advanced"
+- Click the configure button (There should be a line that says "found zlib")
+- Find the "HTTP_WITH_ZLIB" variable in the cmake window and check it
+
+# Installing OpenSSL
+- To download OpenSSL follow the link on the Open SSL web page
+- Scroll down to the table of downloads and select "Win32 OpenSSL v1.0.0d"
+- When running the OpenSSL installer it will ask where it should install the
+	binaries.  Install them to "The OpenSSL binaries (/bin) directory"
+	- After the installation add the directory where the binaries were installed
+	to your system path
+	- I couldn't get the installer to finish, however it did create the
+	directory (c:\OpenSSL) and filled it with stuff
+- Open up cmake and find the "HTTP_WITH_SSL" variable and check it
+
+# Installing GraphicsMagick
+- The Wt install instructions give the web address to the GraphicsMagick page on
+	how to build the library from source.
+- The source files can be found here:
+	<ftp://ftp.graphicsmagick.org/pub/GraphicsMagick/windows/>
+- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
