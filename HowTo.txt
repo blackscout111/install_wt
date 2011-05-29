@@ -60,13 +60,12 @@
 - After the files have been copied run cmake again
 - At the top of the box check "Advanced"
 - The list of entries should reload and show more stuff
-- Scroll down to the bottom to find ZLIB_INCLUDE
-- Set the value of this to "c:/libraries/include"
-- Find ZLIB_LIBRARIES
-- Set the value of this to "c:/libraries/lib"
-- Uncheck "Advanced"
+- In C:/wt/wt-3.1.9/CMakeLists.txt, around line 267, throw the whole IF...ENDIF
+	clauses away and replace by: "INCLUDE(cmake/WtFindZlib.txt)"
+- Open up cmake again.
 - Click the configure button (There should be a line that says "found zlib")
 - Find the "HTTP_WITH_ZLIB" variable in the cmake window and check it
+- Rerun cmake (i.e. configure and generate)
 
 # Installing OpenSSL
 - To download OpenSSL follow the link on the Open SSL web page
@@ -78,13 +77,32 @@
 	- I couldn't get the installer to finish, however it did create the
 	directory (c:\OpenSSL) and filled it with stuff
 - Open up cmake and find the "HTTP_WITH_SSL" variable and check it
+- Rerun cmake (i.e. configure and generate)
 
 # Installing GraphicsMagick
 - The Wt install instructions give the web address to the GraphicsMagick page on
 	how to build the library from source.
 - The source files can be found here:
 	<ftp://ftp.graphicsmagick.org/pub/GraphicsMagick/windows/>
-- 
+- Download "GraphicsMagick-1.3.12-windows-source.7z" (You need 7zip)
+- Extract the "GraphicsMagic-1.3.12" folder to "C:/GraphicsMagic"
+- The Wt install instructions refer to a folder called "Visual Magic" which
+	should be inside the "GraphicsMagic-1.3.12" folder.
+- Continue to follow the installation instructions
+- The visual studio solution needs to be converted from a MSVS 2007 to 2010
+- This was done through a wizard inside MSVS 2010 for me
+- Once everything is converted press F7 to build everything
+- The only project that didn't compile for me was "UTIL_IMDisplay" but the Wt
+	install instructions say that this isn't important.
+- Add "C:\GraphicsMagick\GraphicsMagick-1.3.12\VisualMagick\bin" to the system
+	path variable.
+- Open up cmake and find the "GM_PREFIX" path variable
+- Make it say "C:/GraphicsMagick/GraphicsMagick-1.3.12"
+- Rerun cmake (i.e. configure and generate)
+
+# After all optional components are installed and cmake as been run.  Rebuild
+# everything with Visual Studio.
+
 
 
 
