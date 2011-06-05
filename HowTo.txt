@@ -29,8 +29,6 @@
 	"hello.wt"
 - I set the command arguments (see instructions) to:
 	"--http-address=0.0.0.0 --http-port=8080 --deploy-path=/hello --docroot=."
-- I also added the boost dependency locations to my PATH variable
-	"c:/libraries/lib;c:/Boost/lib;<path to wt.dll>;<path to wthttp.dll>"
 - Then I right-clicked 'hello.wt' and set it as my startup project
 - I hit 'F5' and a window popped up telling me that some projects were out of
 	date.
@@ -102,6 +100,19 @@
 
 # After all optional components are installed and cmake as been run.  Rebuild
 # everything with Visual Studio.
+
+# Adding everything to your PATH
+- Make sure your Windows PATH includes
+	C:\Program Files\CMake 2.8\bin
+	C:\libraries\lib
+	C:\libraries\include
+	C:\ProgramFiles\boost\boost_1_44\lib
+	C:\ProgramFiles\boost\boost_1_44\boost
+	C:\Program Files\WT\Wt\include
+	C:\Program Files\WT\Wt\lib
+	C:\OpenSSL\bin
+	C:\GraphicsMagick\GraphicsMagick-1.3.12\VisualMagick\bin
+
 
 
 
