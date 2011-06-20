@@ -1,13 +1,18 @@
 ################################################################################
 # CONTENTS AND SEARCH KEYS
-# @@ WT
+# @@ WTWin
+# @@ WTUnix
+################################################################################
 
 
 ################################################################################
-# @@ WT
+# @@ WTWin
+#
+# Description:	Installing and using Wt on a Windows System
+#				(specifically Windows 7)
+################################################################################
+
 # INSTALLING WT FOR WINDOWS (Using MSVS 2010)
-################################################################################
-
 - Follow the 'Quick Method' instructions at (They're pretty good)
 	"http://redmine.webtoolkit.eu/projects/wt/wiki/Installing_Wt_on_MS_Windows"
 - DONT INSTALL BOOST VERSION 1.46 (It's "path" object is missing conversions)
@@ -114,22 +119,7 @@
 	C:\GraphicsMagick\GraphicsMagick-1.3.12\VisualMagick\bin
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+################################################################################
+# End of File
+################################################################################
 

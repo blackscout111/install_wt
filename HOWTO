@@ -1,0 +1,118 @@
+################################################################################
+# CONTENTS AND SEARCH KEYS
+# 
+# DESCRIPTION:	This document contains detailed instructions for installing and
+# 				using Wt on a unix system, specifically "Ubuntu 11.4.0"
+#
+# SEARCH KEYS:
+# @@ Install	- How to install Wt and it's dependencies
+# @@ Build		- How to build a Wt project
+################################################################################
+
+
+################################################################################
+# @@ Install
+#
+# Description:	Installing and Wt and its dependencies on a Unix System
+#				(specifically Ubuntu 11.04)
+################################################################################
+
+# Install the boost libraries
+- Open up a new terminal and perform the following actions:
+
+	sudo aptitude install libboost-all-dev	# This will install boost to your
+											# default include directory
+											# (Probably usr/include and usr/lib)
+
+# Install CMake
+- Perform the following actions:
+
+	sudo aptitude install cmake
+
+# Install libz
+- Perform the following actions:
+
+	sudo aptitude install libz-dev
+
+# Install openssl
+- Perform the following actions:
+
+	sudo aptitude install openssl
+
+# Install libgd2
+- Perform the following actions:
+
+	sudo aptitude install libgd2
+
+# Install libmysql++3
+- Perform the following actions:
+
+	sudo aptitude install libmysql++3 libmysql++-doc libmysql++-dev
+
+# Download and install Wt
+- Go to "http://www.webtoolkit.eu/wt/download" and download the latest version
+  of Wt, which was "3.1.9" at the time that this HOWTO was made.  The file to
+  download should be called "wt-3.1.9.tar.gz".
+- Extract the contents of "wt-3.1.9.tar.gz" to "~/wt-3.1.9/"
+- Perform the following actions:
+
+	cd ~/wt-3.1.9/
+	mkdir build
+	cd build
+	cmake ../	# Note there will be some messages about cmake not making some
+				# examples.  This is no problem.  To fix it you'd need to read
+				# the cmake instructions and download and install the required
+				# libraries.
+
+	make -j2	# This takes a while)
+	sudo make install	# Wt should now be installed to /usr/local/
+	make -C examples	# This will build the examples
+
+# How to run an example
+- Perform the following actions:
+
+	cd ~/wt-3.1.9/examples/X	# Source directory for example X
+	ln -s ../../resources .		# Include a link to the standard Wt resources
+	../../build/examples/X/X.wt --docroot . --http-address 0.0.0.0 --http-port 8080
+
+- This should start the server running on the following address:
+
+	http://localhost:8080/
+
+
+################################################################################
+# @@ Build Project
+# 
+# Description:	How to build a simple Wt program
+################################################################################
+- Add the following lines to your ".bashrc" file
+
+	export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib:/usr/local/lib:"
+	export LIBRARY_PATH="$LIBRARY_PATH:/usr/lib:/usr/local/lib:"
+
+- Start a new terminal so that the above changes take effect
+- For a project called "X" that uses a file called X.cpp perform the following
+  actions: 
+
+	mkdir X
+	cd X
+
+- Place all of your project files into directory "X/"
+- To compile the project perform the following actions:
+
+	ln -s /usr/local/share/Wt/resources/ .	# This provides the project with the
+											# standard Wt resources
+											# (e.g. themes)
+	g++ -Wall X.cpp -lwt -lwthttp -o X.wt
+
+- To run the projects perform the following:
+
+	./X.wt --docroot . --http-address 0.0.0.0 --http-port 8080
+
+- This should start the server running on the following address:
+
+	http://localhost:8080/
+
+################################################################################
+# End of File
+################################################################################
