@@ -51,27 +51,32 @@
 
 # Download and install Wt
 - Go to "http://www.webtoolkit.eu/wt/download" and download the latest version
-  of Wt, which was "3.1.9" at the time that this HOWTO was made.  The file to
-  download should be called "wt-3.1.9.tar.gz".
-- Extract the contents of "wt-3.1.9.tar.gz" to "~/wt-3.1.9/"
+  of Wt, which was "3.1.10" at the time that this HOWTO was made.  The file to
+  download should be called "wt-3.1.10.tar.gz".
+- Extract the contents of "wt-3.1.10.tar.gz" to "~/wt-3.1.10/"
 - Perform the following actions:
 
-	cd ~/wt-3.1.9/
+	cd ~/wt-3.1.10/
 	mkdir build
 	cd build
+
+	# Before this next action, consider setting the CMAKE_INSTALL_PREFIX
+	# variable to set the installation prefix directory of the Wt libraries and
+	# includes.
+
 	cmake ../	# Note there will be some messages about cmake not making some
 				# examples.  This is no problem.  To fix it you'd need to read
 				# the cmake instructions and download and install the required
 				# libraries.
 
-	make -j2	# This takes a while)
+	sudo make -j2	# This takes a while
 	sudo make install	# Wt should now be installed to /usr/local/
 	make -C examples	# This will build the examples
 
 # How to run an example
 - Perform the following actions:
 
-	cd ~/wt-3.1.9/examples/X	# Source directory for example X
+	cd ~/wt-3.1.10/examples/X	# Source directory for example X
 	ln -s ../../resources .		# Include a link to the standard Wt resources
 	../../build/examples/X/X.wt --docroot . --http-address 0.0.0.0 --http-port 8080
 
@@ -90,7 +95,11 @@
 	export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib:/usr/local/lib:"
 	export LIBRARY_PATH="$LIBRARY_PATH:/usr/lib:/usr/local/lib:"
 
-- Start a new terminal so that the above changes take effect
+- Start a new terminal so that the above changes take effect or perform the
+  following action:
+
+  	source ~/.bashrc
+
 - For a project called "X" that uses a file called X.cpp perform the following
   actions: 
 
